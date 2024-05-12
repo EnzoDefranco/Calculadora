@@ -4,6 +4,9 @@ import { View, Text } from "react-native";
 import { Styles } from "../styles/GlobalStyles";
 import Display from "./Display";
 import { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faSquareRootAlt, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+
 
 
 
@@ -55,6 +58,12 @@ export default function MyKeyboard() {
         case "/":
           res = parseInt(secondNumber) / parseInt(firstNumber);
           break;
+        case "√":
+          res = Math.sqrt(parseInt(firstNumber));
+          break;
+        case "^":
+          res = Math.pow(parseInt(secondNumber), parseInt(firstNumber));
+          break;
         default:
           res = 0;
       }
@@ -74,9 +83,11 @@ export default function MyKeyboard() {
       <Display firstNumber={firstNumber} secondNumber={secondNumber} operation={operation} result={result} />
     </View>
       <View style={Styles.row}>
-        <Button title="C" isGray onPress={clear} />
-        <Button title="+/-" isGray onPress={() => handleOperationPress("+/-")} />
-        <Button title="％" isGray onPress={() => handleOperationPress("％")} />
+        <Button title="C" isRed onPress={clear} />
+        <Button isGray onPress={() => handleOperationPress("√")}>
+          <FontAwesomeIcon icon={faSquareRootAlt} size={30} color="white" />
+        </Button>
+        <Button title="^" isGray onPress={() => handleOperationPress("^")} />
         <Button title="÷" isBlue onPress={() => handleOperationPress("/")} />
       </View>
       <View style={Styles.row}>
@@ -84,6 +95,7 @@ export default function MyKeyboard() {
         <Button title="8" onPress={() => handleNumberPress("8")} />
         <Button title="9" onPress={() => handleNumberPress("9")} />
         <Button title="×" isBlue onPress={() => handleOperationPress("*")} />
+        
       </View>
       <View style={Styles.row}>
         <Button title="4" onPress={() => handleNumberPress("4")} />
@@ -100,7 +112,9 @@ export default function MyKeyboard() {
       <View style={Styles.row}>
         <Button title="." onPress={() => handleNumberPress(".")} />
         <Button title="0" onPress={() => handleNumberPress("0")} />
-        <Button title="⌫" onPress={() => setFirstNumber(firstNumber.slice(0, -1))} />
+        <Button onPress={() => setFirstNumber(firstNumber.slice(0, -1)) }>
+          <FontAwesomeIcon icon={faDeleteLeft} size={30}  />
+        </Button>
         <Button title="=" isBlue onPress={() => getResult()} />
       </View>
     </View>

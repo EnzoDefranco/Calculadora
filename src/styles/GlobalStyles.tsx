@@ -39,6 +39,15 @@ export const Styles = StyleSheet.create({
             alignItems: "center",
             margin: 8,
         },
+        btnRed: { // Estilos del botón rojo
+            width: 72,
+            height: 72,
+            borderRadius: 24,
+            backgroundColor: myColors.red,
+            justifyContent: "center",
+            alignItems: "center",
+            margin: 8,
+        },
         smallTextLight: { // Estilos del texto pequeño claro
             fontSize: 32,
             color: myColors.white,
