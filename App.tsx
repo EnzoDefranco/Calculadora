@@ -8,7 +8,7 @@ import Keyboard from './src/components/Keyboard';
 
 
 export default function App() {
-  const [theme, setTheme] = useState('blue') // Creo un estado local para el tema
+  const [theme, setTheme] = useState('dark') // Creo un estado local para el tema
   return (
     // Envuelvo la aplicación en el contexto ThemeContext.Provider para que todos los componentes hijos puedan acceder al valor del tema
     <ThemeContext.Provider value={theme}>

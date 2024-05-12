@@ -58,14 +58,27 @@ export const Styles = StyleSheet.create({
             bottom: 50,
         },
         screenFirstNumber: { // Estilo grande para los resultados de la operación e
-            fontSize: 96,
+            fontSize: 76,
             color: myColors.gray,
             fontWeight: '200',
             alignSelf: "flex-end",
         },
+        
         screenSecondNumber: { // Estilo pequeño para los resultados de la operación
             fontSize: 40,
             color: myColors.gray,
+            fontWeight: '200',
+            alignSelf: "flex-end",
+        },
+        resultTextLight: { // Estilo del texto del resultado en modo claro
+            fontSize: 40,
+            color: myColors.black,
+            fontWeight: '200',
+            alignSelf: "flex-end",
+        },
+        resultTextDark: { // Estilo del texto del resultado en modo oscuro
+            fontSize: 40,
+            color: myColors.white,
             fontWeight: '200',
             alignSelf: "flex-end",
         },
