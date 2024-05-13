@@ -91,4 +91,21 @@ export const Styles = StyleSheet.create({
             fontWeight: '200',
             alignSelf: "flex-end",
         },
+
+        //display
+        errorMessage: {
+            color: 'red',
+            fontSize: 30,
+            fontWeight: 'bold',
+            textAlign: 'center', 
+          
+        },
+            // quiero cntrarlo en el medio en el eje vertical
+
+        viewDisplay: {
+            height: 120,
+            width: "90%",
+            justifyContent: "flex-end",
+            alignSelf: "center",
+        },
     });

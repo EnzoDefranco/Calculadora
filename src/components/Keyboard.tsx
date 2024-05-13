@@ -6,6 +6,8 @@ import Display from "./Display";
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSquareRootAlt, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+import Calculator from "./Calculator";
+
 
 
 
@@ -17,6 +19,7 @@ export default function MyKeyboard() {
   const [secondNumber, setSecondNumber] = useState("");
   const [operation, setOperation] = useState("");
   const [result, setResult] = useState<Number>(0);
+  const [error, setError] = useState<string | null>(null);
 
   // En esta funciuón se maneja el evento de presionar un número, se recibe el valor del botón presionado
 
@@ -44,43 +47,57 @@ export default function MyKeyboard() {
 
 
   const getResult = () => {
-      let res;
+    try {
+      let resul;
       switch (operation) {
         case "+":
-          res = parseInt(secondNumber) + parseInt(firstNumber);
+          resul = Calculator.add(parseFloat(secondNumber), parseFloat(firstNumber));
           break;
         case "-":
-          res = parseInt(secondNumber) - parseInt(firstNumber);
+          resul = Calculator.sub(parseFloat(secondNumber), parseFloat(firstNumber));
           break;
         case "*":
-          res = parseInt(secondNumber) * parseInt(firstNumber);
+          resul = Calculator.mul(parseInt(secondNumber), parseInt(firstNumber));
           break;
         case "/":
-          res = parseInt(secondNumber) / parseInt(firstNumber);
+          resul = Calculator.div(parseFloat(secondNumber), parseFloat(firstNumber));
           break;
         case "√":
-          res = Math.sqrt(parseInt(firstNumber));
+          resul = Calculator.raiz(parseFloat(firstNumber));
           break;
         case "^":
-          res = Math.pow(parseInt(secondNumber), parseInt(firstNumber));
+          resul = Calculator.pow(parseFloat(secondNumber), parseFloat(firstNumber));
           break;
         default:
-          res = 0;
+          resul = 0;
       }
-      setResult(res);
-      setFirstNumber(res.toString());
+      console.log("El resultado es: ", resul);
+      setResult(Number(resul));
+      setFirstNumber(resul.toString());
       setSecondNumber("");
       setOperation("");
-    };
+    } catch (error) {
+      if (error instanceof Error) {
+        // Aquí estableces el mensaje de error en el estado del componente
+        setError(error.message);
+        // Aquí limpias el mensaje de error después de 3 segundos
+        setTimeout(() => {
+          setError(null);
+        }, 3000);
+        clear();
+        console.log(error.message);
+      }
+    }
+  };
 
 
   
 
   return (
-    console.log("El primer numero es: ", firstNumber + " El segundo numero es: " + secondNumber + " La operación es: " + operation + " El resultado es: " + result ) ,
+    // console.log("El primer numero es: ", firstNumber + " El segundo numero es: " + secondNumber + " La operación es: " + operation + " El resultado es: " + result ) ,
     <View style={Styles.viewBottom}>
     <View>
-      <Display firstNumber={firstNumber} secondNumber={secondNumber} operation={operation} result={result} />
+      <Display errorMessage={error} firstNumber={firstNumber} secondNumber={secondNumber} operation={operation} result={result}   />
     </View>
       <View style={Styles.row}>
         <Button title="C" isRed onPress={clear} />
@@ -107,7 +124,7 @@ export default function MyKeyboard() {
         <Button title="1" onPress={() => handleNumberPress("1")} />
         <Button title="2" onPress={() => handleNumberPress("2")} />
         <Button title="3" onPress={() => handleNumberPress("3")} />
-        <Button title="+" isBlue onPress={() => handleOperationPress("+")} />
+        <Button title="+" isBlue onPress={() => handleOperationPress("+") } />
       </View>
       <View style={Styles.row}>
         <Button title="." onPress={() => handleNumberPress(".")} />
@@ -120,3 +137,4 @@ export default function MyKeyboard() {
     </View>
   );
 }
+

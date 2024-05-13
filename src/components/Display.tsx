@@ -1,43 +1,3 @@
-// const firstNumberDisplay = () => {
-//     if (result !== null) {
-//         return <Text style={result < 99999 ? [Styles.screenFirstNumber, {color: myColors.result}] : [Styles.screenFirstNumber, {fontSize: 50, color: myColors.result}]}>{result?.toString()}</Text>; 
-//     }
-//     if (firstNumber && firstNumber.length < 6) {
-//       return <Text style={Styles.screenFirstNumber}>{firstNumber}</Text>;
-//     }
-//     if (firstNumber === "") {
-//       return <Text style={Styles.screenFirstNumber}>{"0"}</Text>;
-//     }
-//     if (firstNumber.length > 5 && firstNumber.length < 8) {
-//       return (
-//         <Text style={[Styles.screenFirstNumber, { fontSize: 70 }]}>
-//           {firstNumber}
-//         </Text>
-//       );
-//     }
-//     if (firstNumber.length > 7) {
-//       return (
-//         <Text style={[Styles.screenFirstNumber, { fontSize: 50 }]}>
-//           {firstNumber}
-//         </Text>
-//       );
-//     }
-//   };
-
-//   <View
-//   style={{
-//     height: 120,
-//     width: "90%",
-//     justifyContent: "flex-end",
-//     alignSelf: "center",
-//   }}
-// >
-//   <Text style={Styles.screenSecondNumber}>
-//     {secondNumber}
-//     <Text style={{ color: "purple", fontSize: 50, fontWeight: '500' }}>{operation}</Text>
-//   </Text>
-//   {firstNumberDisplay()}
-// </View>
 
 
 import React, { useContext } from "react";
@@ -52,9 +12,11 @@ interface DisplayProps {
     secondNumber: string;
     operation: string;
     result: number | null;
+    errorMessage: string | null; // Nueva propiedad para el mensaje de error
+
 }
 
-const Display: React.FC<DisplayProps> = ({ firstNumber, secondNumber, operation, result }) => {
+const Display: React.FC<DisplayProps> = ({ firstNumber, secondNumber, operation, result,errorMessage }) => {
     const theme = useContext(ThemeContext);
     const firstNumberDisplay = () => {
         if ((result !== null || result === 0) && firstNumber === "" && secondNumber === "") {
@@ -84,22 +46,24 @@ const Display: React.FC<DisplayProps> = ({ firstNumber, secondNumber, operation,
 
     // Add a return statement to return the JSX
     return (
-
-        <View
-            style={{
-                height: 120,
-                width: "90%",
-                justifyContent: "flex-end",
-                alignSelf: "center",
-            }}
-        >
-            <Text style={theme === 'dark' ? [Styles.resultTextDark, { fontSize: 25 }] : [Styles.resultTextLight,{ fontSize: 25 }]}>
-                {secondNumber}
-                <Text style={{ color: myColors.gray, fontSize: 25, fontWeight: '500', marginLeft: 2 }}>{operation}</Text>
-            </Text>
-            {firstNumberDisplay()}
+        <View style={Styles.viewDisplay}>
+            <View>
+            {errorMessage ? (
+                // Si hay un mensaje de error, solo muestra el mensaje de error
+                <Text style={[Styles.errorMessage]}>{errorMessage}</Text>
+            ) : (
+                // Si no hay un mensaje de error, muestra los números
+                <>
+                <Text style={theme === 'dark' ? [Styles.resultTextDark, { fontSize: 25 }] : [Styles.resultTextLight,{ fontSize: 25 }]}>
+                    {secondNumber}
+                    <Text style={{ color: myColors.gray, fontSize: 25, fontWeight: '500', marginLeft: 2 }}>{operation}</Text>
+                </Text>
+                {firstNumberDisplay()}
+                </>
+            )}
+            </View>
         </View>
-    );
+      );
 }
 
 export default Display;
