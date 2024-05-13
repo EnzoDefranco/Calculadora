@@ -18,7 +18,7 @@ export default function MyKeyboard() {
   const [firstNumber, setFirstNumber] = useState("");
   const [secondNumber, setSecondNumber] = useState("");
   const [operation, setOperation] = useState("");
-  const [result, setResult] = useState<Number>(0);
+  const [result, setResult] = useState<Number>(0) || Boolean;
   const [error, setError] = useState<string | null>(null);
 
   // En esta funciuón se maneja el evento de presionar un número, se recibe el valor del botón presionado
@@ -30,7 +30,10 @@ export default function MyKeyboard() {
   };
 
   // En esta función se maneja el evento de presionar una operación, se recibe el valor del botón presionado
-  const handleOperationPress = (buttonValue: string) => {
+  const handleOperationPress = (buttonValue: string) => { // Si no hay un primer número, no se permite seleccionar la raíz cuadrada, ni la potencia
+    if ((buttonValue === "√" && firstNumber !== "") || (buttonValue === "^" && firstNumber === "") || (buttonValue === "√" && firstNumber !== "" && !getResult() )) {
+      return;
+    }
     if (operation) return; // Si ya hay una operación seleccionada, no se permite seleccionar otra
     setOperation(buttonValue);
     setSecondNumber(firstNumber);
@@ -47,7 +50,7 @@ export default function MyKeyboard() {
   };
 
 
-  const getResult = () => {
+  const getResult = (): boolean => {
     try {
       let resul;
       switch (operation) {
@@ -77,6 +80,7 @@ export default function MyKeyboard() {
       setFirstNumber(resul.toString());
       setSecondNumber("");
       setOperation("");
+      return true;
     } catch (error) {
       if (error instanceof Error) {
         // Aquí estableces el mensaje de error en el estado del componente
@@ -88,6 +92,7 @@ export default function MyKeyboard() {
         clear();
         console.log(error.message);
       }
+      return false;
     }
   };
 

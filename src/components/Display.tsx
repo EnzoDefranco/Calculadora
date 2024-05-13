@@ -28,20 +28,14 @@ const Display: React.FC<DisplayProps> = ({ firstNumber, secondNumber, operation,
         if (firstNumber === "") {
             return <Text style={theme === 'dark' ? [Styles.resultTextDark] : [Styles.resultTextLight]}>{"0"}</Text>;
         }
-        if (firstNumber.length > 5 && firstNumber.length < 8) {
+        if (firstNumber.length > 5) {
             return (
-                <Text style={[theme === 'dark' ? [Styles.resultTextDark] : [Styles.resultTextLight], { fontSize: 70 }]}>
+                <Text style={[theme === 'dark' ? [Styles.resultTextDark] : [Styles.resultTextLight], { fontSize: 30 }]}>
                     {firstNumber}
                 </Text>
             );
         }
-        if (firstNumber.length > 7) {
-            return (
-                <Text style={[theme === 'dark' ? [Styles.resultTextDark] : [Styles.resultTextLight], { fontSize: 50 }]}>
-                    {firstNumber}
-                </Text>
-            );
-        }
+
     }
 
     // Add a return statement to return the JSX

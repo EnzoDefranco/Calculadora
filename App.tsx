@@ -16,9 +16,12 @@ export default function App() {
     <ThemeContext.Provider value={theme}> {/* Paso el valor del estado local a través del contexto ThemeContext*/}
       <SafeAreaView  style={theme === 'light' ? styles.container : [styles.container, {backgroundColor: myColors.black}]}> {/* Cambio el color de fondo del contenedor dependiendo del tema*/} 
         <StatusBar style="auto" /> {/* Barra de estado de la aplicación*/}
-        <View style={styles.switchContainer}> {/* Contenedor del switch*/}          
-        <TouchableOpacity activeOpacity={1} onPress={() => setTheme(theme === 'light' ? 'dark' : 'light')}> {/* Botón que cambia el tema*/}
-            <FontAwesomeIcon icon={theme === 'light' ? faSun : faMoon} size={24} color={theme === 'dark' ? myColors.white : myColors.black} /> {/* Icono que cambia dependiendo del tema*/}
+        <View style={[styles.switchContainer]}> {/* Contenedor del switch*/}          
+        <TouchableOpacity style={{flexDirection: 'row'}}  activeOpacity={1} onPress={() => setTheme(theme === 'light' ? 'dark' : 'light')}> {/* Botón que cambia el tema*/}
+            <FontAwesomeIcon icon={theme === 'light' ? faMoon : faSun} size={24} color={theme === 'dark' ? myColors.yellow : myColors.yellow} /> {/* Icono que cambia dependiendo del tema*/}
+            <Text style={theme === 'dark' ? [styles.darkMode, {color: 'white'}] : styles.darkMode}>
+              {theme === 'light' ? 'Activar DarkMode' : 'Activar LightMode'} {/* Texto que cambia dependiendo del tema*/}
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.keyboardContainer}> {/* Contenedor del teclado*/}
@@ -38,11 +41,23 @@ const styles = StyleSheet.create({
   switchContainer: {
     alignSelf: 'flex-start', // Alineación horizontal
     padding: 10, // Espaciado
-    marginTop: 40 // Margen superior
+    marginTop: 40, // Margen superior
+    width: '100%', // Ancho
+    flexDirection: 'row', // Dirección de los elementos
   },
   keyboardContainer: {
     flex: 1, // Para que ocupe todo el espacio disponible
     alignItems: 'center', // Alineación horizontal
     justifyContent: 'center', // Alineación vertical
   },
+  darkMode:{
+    fontSize: 20,
+    marginLeft: 15,
+    fontFamily: 'Arial',
+    fontWeight: 'bold',
+    color: 'black',
+
+       
+
+  }
 });

@@ -8,5 +8,6 @@ export const myColors = {
     black: '#000000',
     white: '#FFFFFF', 
     red: '#FF5C5C',
+    yellow: '#FFD766',
 
 };
