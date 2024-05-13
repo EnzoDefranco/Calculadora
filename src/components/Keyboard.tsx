@@ -31,6 +31,7 @@ export default function MyKeyboard() {
 
   // En esta función se maneja el evento de presionar una operación, se recibe el valor del botón presionado
   const handleOperationPress = (buttonValue: string) => {
+    if (operation) return; // Si ya hay una operación seleccionada, no se permite seleccionar otra
     setOperation(buttonValue);
     setSecondNumber(firstNumber);
     setFirstNumber("");
@@ -83,7 +84,7 @@ export default function MyKeyboard() {
         // Aquí limpias el mensaje de error después de 3 segundos
         setTimeout(() => {
           setError(null);
-        }, 3000);
+        }, 1000);
         clear();
         console.log(error.message);
       }
