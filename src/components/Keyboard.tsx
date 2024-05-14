@@ -31,7 +31,7 @@ export default function MyKeyboard() {
 
   // En esta función se maneja el evento de presionar una operación, se recibe el valor del botón presionado
   const handleOperationPress = (buttonValue: string) => { // Si no hay un primer número, no se permite seleccionar la raíz cuadrada, ni la potencia
-    if ((buttonValue === "√" && firstNumber !== "") || (buttonValue === "^" && firstNumber === "") || (buttonValue === "√" && firstNumber !== "" && !getResult() )) {
+    if ((buttonValue === "√" && firstNumber !== "") || ((buttonValue === "^" || buttonValue === '*' || buttonValue === '/' || buttonValue === '+' || buttonValue === '+' || buttonValue === '-')  && firstNumber === "") || (buttonValue === "√" && firstNumber !== "" && !getResult() )) {
       return;
     }
     if (operation) return; // Si ya hay una operación seleccionada, no se permite seleccionar otra
